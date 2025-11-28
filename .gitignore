@@ -1,0 +1,27 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*
+
+# Prisma
+.prisma
+
+# Build output
+dist/
+build/
+.out/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Cache
+.cache/
+.next/

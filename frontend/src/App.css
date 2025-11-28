@@ -1,0 +1,372 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app-container {
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(to bottom right, #7c3aed, #9333ea, #4f46e5);
+  padding: 2rem;
+}
+
+.app-wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Header Styles */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.main-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 0.75rem;
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.04));
+}
+
+.subtitle {
+  color: #e9d5ff;
+  font-size: 1.125rem;
+}
+
+/* Main Grid */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .main-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Card Styles */
+.card {
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.2);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.icon-wrapper {
+  padding: 0.75rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.icon-user {
+  background: linear-gradient(to bottom right, #ec4899, #a855f7);
+}
+
+.icon-post {
+  background: linear-gradient(to bottom right, #3b82f6, #6366f1);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: white;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+/* Form Styles */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.75rem;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.input-field::placeholder {
+  color: #e9d5ff;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #f472b6;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.textarea-field {
+  resize: none;
+  height: 6rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.btn:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn-primary {
+  flex: 1;
+}
+
+.btn-user {
+  background: linear-gradient(to right, #ec4899, #9333ea);
+}
+
+.btn-user:hover {
+  box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.5);
+  transform: scale(1.05);
+}
+
+.btn-post {
+  background: linear-gradient(to right, #3b82f6, #6366f1);
+}
+
+.btn-post:hover {
+  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.5);
+  transform: scale(1.05);
+}
+
+.btn-cancel {
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.btn-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* List Styles */
+.list-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 24rem;
+  overflow-y: auto;
+}
+
+/* Custom Scrollbar */
+.list-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.list-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.list-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.empty-message {
+  color: #e9d5ff;
+  text-align: center;
+  padding: 2rem;
+}
+
+.list-item {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  border-radius: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.list-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.02);
+}
+
+.list-item-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.list-item-info {
+  flex: 1;
+}
+
+.list-item-name {
+  color: white;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.list-item-email {
+  color: #e9d5ff;
+  font-size: 0.875rem;
+}
+
+.list-item-post-title {
+  color: white;
+  font-weight: 600;
+  font-size: 1.125rem;
+  flex: 1;
+}
+
+.list-item-body {
+  color: #e9d5ff;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.list-item-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.action-edit {
+  background: rgba(59, 130, 246, 0.3);
+}
+
+.action-edit:hover {
+  background: rgba(59, 130, 246, 0.5);
+  transform: scale(1.1);
+}
+
+.action-delete {
+  background: rgba(239, 68, 68, 0.3);
+}
+
+.action-delete:hover {
+  background: rgba(239, 68, 68, 0.5);
+  transform: scale(1.1);
+}
+
+.action-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.8s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.8s ease-out;
+}
