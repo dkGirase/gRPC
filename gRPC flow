@@ -1,0 +1,32 @@
+Frontend (React / JS)
+        |
+        |  HTTP Request (fetch / REST)
+        ↓
+Gateway (Express.js API Layer)
+        |
+        |  Convert JSON → gRPC Object
+        |  Serialize using .proto
+        ↓
+gRPC Client in Gateway
+        |
+        |  Binary Data over HTTP/2
+        ↓
+gRPC Server (User / Post / Reaction Service)
+        |
+        |  Deserialize from Proto
+        |  Run business logic
+        |  Database (Prisma / PostgreSQL)
+        |
+        |  Serialize response into Proto
+        ↑
+gRPC Server → Gateway
+        |
+        |  Decode Proto → JSON
+        ↓
+Gateway (Express)
+        |
+        |  Send JSON response
+        ↓
+Frontend
+
+Frontend sends HTTP request → Gateway receives it → Gateway converts JSON to gRPC request → Proto serializes the data → gRPC service deserializes → Business logic runs → Result is serialized → Sent back via Proto → Gateway deserializes → Response returned to frontend.

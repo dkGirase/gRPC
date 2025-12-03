@@ -370,3 +370,13 @@
 .animate-slide-in-right {
   animation: slide-in-right 0.8s ease-out;
 }
+
+.user-reactions {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.user-reactions b {
+  color: #070707;
+}

@@ -20,7 +20,13 @@ function App() {
       .then(setPosts);
   };
 
-  useEffect(loadData, []);
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  useEffect(() => {
+    console.log("Users loaded:", users);
+  }, [users]);
 
   // Create or Update User
   const saveUser = async (e) => {
@@ -44,15 +50,26 @@ function App() {
     e.preventDefault();
     const url = editPostId ? `/api/posts/${editPostId}` : "/api/posts";
     const method = editPostId ? "PUT" : "POST";
+
+    // authorId must exist
+    if (!pform.authorId) {
+      alert("Please select an author!");
+      return;
+    }
+
     const res = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(pform),
     });
+
     if (res.ok) {
-      setPform({ title: "", body: "" });
+      setPform({ title: "", body: "", authorId: "" });
       setEditPostId(null);
       loadData();
+    } else {
+      const err = await res.json();
+      alert(err.error || "Failed to create post");
     }
   };
 
@@ -150,6 +167,19 @@ function App() {
                         <div className="list-item-info">
                           <h4 className="list-item-name">{u.name}</h4>
                           <p className="list-item-email">{u.email}</p>
+                          <div className="user-reactions">
+                            <strong>Reactions:</strong>
+
+                            {u.reactions?.length === 0 && (
+                              <p>No reactions yet</p>
+                            )}
+
+                            {u.reactions?.map((r, index) => (
+                              <p style={{ color: "black" }} key={index}>
+                                <b>{r.postTitle}</b>: {r.type}
+                              </p>
+                            ))}
+                          </div>
                         </div>
                         <div className="list-item-actions">
                           <button
@@ -206,6 +236,22 @@ function App() {
                   className="input-field textarea-field"
                   required
                 />
+                <select
+                  value={pform.authorId || ""}
+                  onChange={(e) =>
+                    setPform({ ...pform, authorId: e.target.value })
+                  }
+                  className="input-field"
+                  required
+                >
+                  <option value="">Select Author</option>
+                  {users.map((u) => (
+                    <option style={{ color: "black" }} key={u.id} value={u.id}>
+                      {u.name}
+                    </option>
+                  ))}
+                </select>
+
                 <div className="button-group">
                   <button
                     onClick={savePost}
@@ -231,28 +277,53 @@ function App() {
                   <p className="empty-message">No posts yet. Create one!</p>
                 ) : (
                   posts.map((p) => (
-                    <div key={p.id} className="list-item">
+                    <div key={p.post.id} className="list-item">
                       <div className="list-item-content">
-                        <h4 className="list-item-post-title">{p.title}</h4>
+                        <h4 className="list-item-post-title">{p.post.title}</h4>
                         <div className="list-item-actions">
                           <button
                             onClick={() => {
-                              setPform({ title: p.title, body: p.body });
-                              setEditPostId(p.id);
+                              setPform({
+                                title: p.post.title,
+                                body: p.post.body,
+                              });
+                              setEditPostId(p.post.id);
                             }}
                             className="action-btn action-edit"
                           >
                             <Edit2 className="action-icon" />
                           </button>
                           <button
-                            onClick={() => deletePost(p.id)}
+                            onClick={() => deletePost(p.post.id)}
                             className="action-btn action-delete"
                           >
                             <Trash2 className="action-icon" />
                           </button>
                         </div>
                       </div>
-                      <p className="list-item-body">{p.body}</p>
+                      <p className="list-item-body">{p.post.body}</p>
+                      <p className="author-name">
+                        Author: {p.author?.name || "Unknown"}
+                      </p>
+                      <p className="reactions">
+                        Likes: {p.reactionSummary.counts.likes} - Dislikes:{" "}
+                        {p.reactionSummary.counts.dislikes}
+                      </p>
+                      <p className="reactors">
+                        Liked by:{" "}
+                        {p.reactionSummary.reactors
+                          .filter((r) => r.type === "LIKE")
+                          .map((r) => r.name)
+
+                          .join(", ")}
+                      </p>
+                      <p className="reactors">
+                        Disliked by:{" "}
+                        {p.reactionSummary.reactors
+                          .filter((r) => r.type === "DISLIKE")
+                          .map((r) => r.name)
+                          .join(", ")}
+                      </p>
                     </div>
                   ))
                 )}
